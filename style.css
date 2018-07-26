@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Gilbert';
+  src:  local('Gilbert Color');
+}
+
+@font-face {
+  font-family: 'Playbox';
+  src:  local('Playbox');
+}
+
+@font-face {
+  font-family: 'Abelone';
+  src:  local('Abelone');
+}
+
+body {
+  font-family: 'Gilbert', sans-serif;
+}
+
+h1 {
+  font-size:  4rem;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 8rem;
+}
+
+.playbox {
+  font-family: 'Playbox', sans-serif;
+}
+
+.abelone {
+  font-family: 'Abelone', sans-serif;
+}
