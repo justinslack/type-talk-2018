@@ -1,0 +1,19 @@
+Web fonts are amazing. They give personality to what we read on the screen and can make our sites engaging. But web fonts are a resource and they come at a cost. This talk will cover the intersection of beautiful web typography and performance. We'll discuss the history of fonts on the web, how to enable rich typographic features, and how to load web fonts efficiently.
+
+# In the beginning
+
+It doesn't seem so long ago that front-end developers were employing all manner of techniques to use more than just the set of fonts installed on the user's computer. Now we have @font-face, OpenType features, WOFF (a font format specifically optimised for the web), and variable fonts. These developments allow us to create rich typographic experiences. This comes with a performance cost, though: web pages become bigger and heavier. That means a slower page that comes with more data to load.
+
+This talk will cover the intersection of beautiful web typography and performance. We'll discuss the history of fonts on the web, how to enable rich typographic features, and how to load web fonts efficiently.
+
+# We will cover
+
+- Typography and how it affects reading
+- A history of `@font-face` in the browser
+- Open type font features - like ligatures, lining numbers, stylistic sets - and how to use them
+- Font loading strategies for optimal performance
+- The new shiny: variable fonts
+
+# Audience
+
+Anyone who lays out text for the web in any way - designers and developers alike - are typographers. This talk is for everyone.
