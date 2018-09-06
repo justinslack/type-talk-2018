@@ -11,4 +11,6 @@ Web fonts are awesome. They make your sans-serifs slabby, your headers special a
 
 Web fonts are difficult to get right. An often overlooked and disruptive piece of web performance, web fonts can slow down your site and leave your visitors confused and agitated. No one wants agitated visitors. In this talk we’ll discuss useful methods to render web fonts quickly and without disruption so that visitors can do what should be a simple task—read the text. After all, web fonts are not rocket science.
 
+progreesive enhancement built into variable font format
+
 Typography is what comes between the author and the reader. This is as true on the web as it is in any other medium. If a text has anything at all significant to say, it needs a typographer’s care, which will in turn be repaid by the reader’s attention. If you design websites or use CSS then you are a typographer whether you know it or not. This talk will give you will give a set of guidelines that deftly combine implement­ation details with typographic theory and set you on the road to designing beautiful and effective responsive typography.
