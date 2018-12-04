@@ -1,0 +1,112 @@
+@font-face {
+  font-family:'Decovar Regular24';
+  src: url('Decovar.woff2');
+}
+
+@font-face {
+  font-family:'Zycon';
+  src: url('Zycon.woff2');
+}
+
+@font-face {
+  font-family:'Lab';
+  src: url('LabDJR-VF.woff2');
+}
+
+@font-face {
+  font-family:'Venn';
+  src: url('VennVF_W.woff2');
+}
+
+
+body {
+  color: white;
+  background-color: rgb(0, 162, 215);
+  font-size: 90px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+
+h1 {
+  /* animation: grow 4s linear infinite; */
+  font-family: "Decovar Regular24";
+  font-variation-settings:
+    "BLDA" 0,
+    "TRMD" 0,
+    "TRMC" 0,
+    "SKLD" 0,
+    "TRML" 0,
+    "SKLA" 0,
+    "TRMF" 0,
+    "BLDB" 0,
+    "WMX2" 0,
+    "TRMB" 0,
+    "TRMA" 0,
+    "SKLB" 0,
+    "TRMG" 0,
+    "TRME" 0;
+}
+
+@keyframes grow {
+  0% {
+    font-variation-settings: 'WMX2' 0;
+  }
+
+  50% {
+    font-variation-settings:  'WMX2' 900;
+  }
+
+  100% {
+    font-variation-settings:  'WMX2' 0;
+  }
+
+}
+
+.decovar {
+  font-family: "Decovar";
+  animation: motion 4s linear infinite;
+}
+
+@keyframes motion {
+  0% {
+    font-variation-settings: 'M1' -1;
+  }
+
+  50% {
+    font-variation-settings:  'M1' 0;
+  }
+
+  100% {
+    font-variation-settings:  'M1' 1;
+  }
+
+}
+
+.lab {
+  color:  pink;
+  margin:  60px 0;
+  font-family: "Lab";
+  /* animation: size 6s linear infinite; */
+}
+
+@keyframes size {
+  0% {
+    font-variation-settings: 'OVAL' 0, 'BEVL' 0, 'QUAD' 0, 'SIZE' 0;
+  }
+
+  50% {
+    font-variation-settings:  'OVAL' 900, 'BEVL' 900, 'QUAD' 900, 'SIZE' 900;
+  }
+
+  100% {
+    font-variation-settings:  'OVAL' 0, 'BEVL' 0, 'QUAD' 0, 'SIZE' 0;
+  }
+
+}
+
+.venn {
+  color:  pink;
+  margin:  60px 0;
+  font-family: "Venn";
+}
