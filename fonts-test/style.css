@@ -30,7 +30,10 @@ body {
 
 h1 {
   animation: grow 4s linear infinite;
+  animation: test2 4s linear infinite;
+  animation: test3 4s linear infinite;
   font-family: "Decovar Regular24";
+  font-size: 3em;
   font-variation-settings:
     "BLDA" 0,
     "TRMD" 0,
@@ -50,15 +53,45 @@ h1 {
 
 @keyframes grow {
   0% {
-    font-variation-settings: 'WMX2' 300, 'TRMG' 0;
+    font-variation-settings: "BLDA" 0;
   }
 
   50% {
-    font-variation-settings:  'WMX2' 600, 'TRMG' 600;
+    font-variation-settings:  "BLDA" 900;
   }
 
   100% {
-    font-variation-settings:  'WMX2' 300, 'TRMG' 0;
+    font-variation-settings:  "BLDA" 0;
+  }
+
+}
+
+@keyframes test2 {
+  0% {
+    font-variation-settings: 'WMX2' 300;
+  }
+
+  50% {
+    font-variation-settings:  'WMX2' 600;
+  }
+
+  100% {
+    font-variation-settings:  'WMX2' 300;
+  }
+
+}
+
+@keyframes test3 {
+  0% {
+    font-variation-settings: 'TRMG' 0;
+  }
+
+  50% {
+    font-variation-settings:  'TRMG' 600;
+  }
+
+  100% {
+    font-variation-settings:  'TRMG' 0;
   }
 
 }
