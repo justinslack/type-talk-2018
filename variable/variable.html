@@ -1,384 +1,211 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Variable Web Typography – Demo of a variable font in action on the web</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-  </head>
+<head>
+  <title>Variable Web Typography – Demo of a variable font in action on the web</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  <body class="variable" id="page">
-    <a id="toggle" class="switch switch-variable-off" onclick="toggleTypography()"> variable fonts</a>
+<body class="variable" id="page">
+  <a id="toggle" class="switch switch-variable-off" onclick="toggleTypography()"> variable fonts</a>
 
-    <div class="browser-info">
-      <div class="wrapper">
-        <strong class="alert">It seems you browser does not support variable fonts.</strong> To see the variable font on this page, you have to run it in a browser that <a href="https://caniuse.com/#feat=variable-fonts" target="_blank">supports font-variation-settings</a>, like Chrome, any browser on iOS 11, or Safari 11+ on MacOS 10.13+.
+  <div class="browser-info">
+    <div class="wrapper">
+      <strong class="alert">It seems you browser does not support variable fonts.</strong> To see the variable font on this page, you have to run it in a browser that <a href="https://caniuse.com/#feat=variable-fonts" target="_blank">supports font-variation-settings</a>, like Chrome, any browser on iOS 11, or Safari 11+ on MacOS 10.13+.
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="wrapper">
+      <h1 class="title">
+        <span class="title__be-ready">Investigating</span>
+        <span class="title__variable-web">
+          <span class="title__variable-web__variable">push</span>
+          <span class="title__variable-web__web">without</span>
+        </span>
+        <span class="title__typography">notifications</span>
+      </h1>
+    </div>
+  </header>
+  <div class="wrapper">
+      <p class="author">by <span class="author__first-name">Jeremy</span> <span class="author__last-name">Keith</span></p>
+      <p>
+        <time class="dt-published" datetime="2018-11-11T23:41:41">November 11th, 2018</time>
+      </p>
+
+
+      <div class="e-content">
+        <p>On the first day of <a href="https://indieweb.org/2018/Berlin">Indie Web Camp Berlin</a>, I led a session on <a href="https://abookapart.com/products/going-offline">going offline with service workers</a>. This covered all the usual use-cases: pre-caching; custom offline pages; saving pages for offline reading.</p>
+
+        <p>But on the second day, <a href="https://seblog.nl/">Sebastiaan</a> spent a fair bit of time investigating a more complex use of service workers with <a href="https://www.w3.org/TR/push-api/">the Push API</a>.</p>
+
+        <p>The Push API is what makes push notifications possible on the web. There are a <em>lot</em> of moving parts—browser, server, service worker—and, frankly, it’s way over my head. But I’m familiar with the general gist of how it works. Here’s a typical flow:</p>
+
+        <ol>
+          <li>A website prompts the user for permission to send push notifications.</li>
+          <li>The user grants permission.</li>
+          <li>A whole lot of complicated stuff happens behinds the scenes.</li>
+          <li>Next time the website publishes something relevant, it fires a push message containing the details of the new URL.</li>
+          <li>The user’s service worker receives the push message (even if the site isn’t open).</li>
+          <li>The service worker creates a notification linking to the URL, interrupting the user, and generally adding to the weight of information overload.</li>
+        </ol>
+
+        <p>Here’s what Sebastiaan wanted to investigate: what if that last step weren’t so intrusive? Here’s the alternate flow he wanted to test:</p>
+
+        <ol>
+          <li>A website prompts the user for permission to send push notifications.</li>
+          <li>The user grants permission.</li>
+          <li>A whole lot of complicated stuff happens behinds the scenes.</li>
+          <li>Next time the website publishes something relevant, it fires a push message containing the details of the new URL.</li>
+          <li>The user’s service worker receives the push message (even if the site isn’t open).</li>
+          <li>The service worker fetches the contents of the URL provided in the push message and caches the page. Silently.</li>
+        </ol>
+
+        <p>It worked.</p>
+
+        <p>I think this could be a real game-changer. I don’t know about you, but I’m very, <em>very</em> wary of granting websites the ability to send me push notifications. In fact, I don’t think I’ve ever given a website permission to interrupt me with push notifications. </p>
+
+        <p>You’ve seen the annoying permission dialogues, right?</p>
+
+        <p>In Firefox, it looks like this:</p>
+
+        <blockquote>
+          <p>Will you allow name-of-website to send notifications?</p>
+
+          <p>[Not Now] [Allow Notifications]</p>
+        </blockquote>
+
+        <p>In Chrome, it’s:</p>
+
+        <blockquote>
+          <p>name-of-website wants to</p>
+
+          <p>Show notifications</p>
+
+          <p>[Block] [Allow]</p>
+        </blockquote>
+
+        <p>But in actual fact, these dialogues are asking for permission to do <strong>two</strong> things:</p>
+
+        <ol>
+          <li>Receive messages pushed from the server.</li>
+          <li>Display notifications based on those messages.</li>
+        </ol>
+
+        <p>There’s no way to ask for permission just to do the first part. That’s a shame. While I’m very unwilling to grant permission to be interrupted by intrusive notifications, I’d be more than willing to grant permission to allow a website to silently cache timely content in the background. It would be a more <a href="https://calmtech.com/">calm technology</a>.</p>
+
+        <p>Think of the use cases:</p>
+
+        <ul>
+          <li>I grant push permission to <a href="https://www.1843magazine.com/">a magazine</a>. When the magazine publishes a new article, it’s cached on my device.</li>
+          <li>I grant push permission to <a href="http://revisionisthistory.com/">a podcast</a>. Whenever a new episode is published, it’s cached on my device.</li>
+          <li>I grant push permission to <a href="https://www.centauri-dreams.org/">a blog</a>. When there’s a new blog post, it’s cached on my device.</li>
+        </ul>
+
+        <p>Then when I’m on a plane, or in the subway, or in any other situation without a network connection, I could still visit these websites and get content that’s fresh to me. It’s kind of like <a href="https://developers.google.com/web/updates/2015/12/background-sync">background sync</a> in reverse.</p>
+
+        <p>There’s plenty of opportunity for abuse—the cache could get filled with content. But websites can already do that, and they don’t need to be granted any permissions to do so; <a href="https://adactio.com/journal/11730">just by visiting a website</a>, it can add multiple files to a cache.</p>
+
+        <p>So it seems that the reason for the permissions dialogue is all about <em>displaying notifications</em> …not so much about receiving push messages from the server.</p>
+
+        <p>I wish there were a way to implement this background-caching pattern without requiring the user to grant permission to a dialogue that contains the word “notification.”</p>
+
+        <p>I wonder if the act of <a href="https://adactio.com/journal/13061">adding a site to the home screen</a> could implicitly grant permission to allow use of the Push API <em>without</em> notifications?</p>
+
+        <p>In the meantime, the proposal for <a href="https://github.com/WICG/BackgroundSync/blob/master/explainer.md#periodic-synchronization-in-design">periodic synchronisation</a> (using background sync) could achieve similar results, but in a less elegant way; periodically polling for new content instead of receiving a push message when new content is published. Also, it requires permission. But at least in this case, the permission dialogue should be more specific, and wouldn’t include the word “notification” anywhere.</p>
+
+      </div>
+
+      <footer>
+        <p class="meta">
+          <time datetime="2018-11-11T23:41:41Z">
+            11:41pm
+          </time>
+        </p>
+        <p class="meta">
+          Tagged with
+          <a rel="tag" href="/journal/tags/push">push</a>
+          <a rel="tag" href="/journal/tags/notifications">notifications</a>
+          <a rel="tag" href="/journal/tags/serviceworkers">serviceworkers</a>
+          <a rel="tag" href="/journal/tags/offline">offline</a>
+          <a rel="tag" href="/journal/tags/caching">caching</a>
+          <a rel="tag" href="/journal/tags/caches">caches</a>
+          <a rel="tag" href="/journal/tags/background">background</a>
+          <a rel="tag" href="/journal/tags/sync">sync</a>
+          <a rel="tag" href="/journal/tags/frontend">frontend</a>
+          <a rel="tag" href="/journal/tags/development">development</a>
+          <a rel="tag" href="/journal/tags/permissions">permissions</a>
+          <a rel="tag" href="/journal/tags/dialogue">dialogue</a>
+          <a rel="tag" href="/journal/tags/security">security</a>
+          <a rel="tag" href="/journal/tags/indiewebcamp">indiewebcamp</a>
+          <a rel="tag" href="/journal/tags/berlin">berlin</a>
+          <a rel="tag" href="/journal/tags/browsers">browsers</a>
+          <a rel="tag" href="/journal/tags/standards">standards</a>
+        </p>
+        <p class="meta">
+          Also on
+          <a rel="syndication" class="u-syndication" href="https://medium.com/@adactio/e5dfb24f7189">Medium</a>
+        </p>
+      </footer>
+
+      <p>
+        <a rel="prev" href="/journal/14516" title="Optimise without a face">« Newer</a>
+        <a rel="next" href="/journal/14509" title="Webmentions at Indie Web Camp Berlin">Older »</a>
+      </p>
+
+      <form method="post" action="/webmention">
+        <p>Have you published a response to this? <label for="webmention-source">Let me know the <abbr title="Uniform Resource Locator">URL</abbr></label>:</p>
+        <input type="url" name="source" id="webmention-source">
+        <input type="hidden" name="target" value="https://adactio.com/journal/14511">
+        <button type="submit">Ping!</button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+  <footer class="footer">
+    <div class="wrapper">
+      <div class="grid-collumn">
+        <div>
+        </div>
+        <div>
+          <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Variable Web Typography</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://zeichenschatz.net/" property="cc:attributionName" rel="cc:attributionURL" target="_blank">Oliver Schöndorfer</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>. Typeface provided for this demo purpose is <a xmlns:dct="http://purl.org/dc/terms/" href="https://djr.com/output/" rel="dct:source" target="_blank">Output Sans by David Jonathan Ross</a>.
+        </div>
       </div>
     </div>
+  </footer>
 
-    <header class="header">
-      <div class="wrapper">
-        <h1 class="title">
-          <span class="title__be-ready">It’s time</span> <span class="title__for">for</span> <span class="title__variable-web"><span class="title__variable-web__variable">variable</span> <span class="title__variable-web__web">web</span></span> <span class="title__typography">typography</span>
-        </h1>
-      </div>
-    </header>
-
-    <main>
-      <div class="wrapper">
-        <p class="author">by <span class="author__first-name">Oliver</span> <span class="author__last-name">Schöndorfer</span></p>
-        <div class="grid-collumn">
-          <div class="narrow-column">
-            <p class="intro">Variable fonts will shape the future of web typography as they offer plenty of possibilities for fine graded control over the display of type on screens. And that all at a relatively low file size. Time to say goodbye to endless debates about the number of font files you have to load to give your content a proper typographic voice.</p>
-          </div>
-          <div>
-            <p class="p-body-text">
-              This page uses the typeface <a href="https://djr.com/output/" target="_blank">Output Sans Variable</a> by David Jonathan Ross. It’s a variable font that can be adjusted on two axes to change its <em>weight</em> and its <em>obliqueness.</em> So I only have load <strong>one single font file</strong> of 57 KB to create the 18 different styles you can see on this site. It opens up new possibilities for designing with text on the web with a great number of typographic expressions for an incredibly small font file. So clearly, variable fonts are the new hot thing for every type nerd since the introduction of web fonts. The technology shift is happening right now—2018 is the year variable fonts will be supported by all major browsers. I expect by 2019, they will be used as an alternative to static fonts. But how do they work and what can you do with them?
-            </p>
-            <div class="callout">
-              <span class="callout__big-number">18</span> <span class="callout__small-text">font styles out of <strong class="callout__small-text-strong">one font file</strong> at</span> <span class="callout__big-number">57</span> <span class="callout__small-text callout__small-text--kb">KB only</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-collumn">
-          <div class="narrow-column">
-            <h2 class="h2">A quick <span class="h2__highlight">introduction</span> to variable fonts</h2>
-          </div>
-          <div>
-            <p class="p-body-text">
-              One simple explanation I picked up during my research is, that variable fonts are <strong>one font file that behaves like many.</strong> Traditionally for every single font weight or style, e.g. <em>italic,</em> <em>bold</em> or <em>light expanded</em> you need to load a corresponding font file. With one OpenType variable font file, you can generate multiple individual font styles and that at a very granular level.
-            </p>
-            <figure><img src="variable-fonts-weight-width-axis.png" class="img__example-axes">
-              <figcaption class="figcaption">A variable font can contain multiple axes. This is an example for a width and a weight axis of the typeface Venn by Dalton Maag.</figcaption>
-            </figure>
-            <p class="p-body-text">
-              The small file size comes from the fact, that each character only has <em>one</em> outline. The points that construct this outline have instructions how they should behave (or move) to create, for example, another weight. The individual styles then get <strong>interpolated,</strong> which means they get drawn dynamically inside the browser. In September 2016 OpenType Font Variations were publicly announced and are developed by Adobe, Apple, Google, and Microsoft together. This means things move forward relatively fast.
-            </p>
-          </div>
-        </div>
-
-        <div class="grid-collumn">
-          <div class="narrow-column">
-            <h2 class="h2">What new <span class="h2__highlight">possibilities</span> are there?</h2>
-          </div>
-          <div>
-            <p class="p-body-text">
-              This always depends on the design of the typeface. Type designers are provided with various axes that can be adjusted dynamically to change the font’s weight, width or whatever they want. There are five reserved or <strong>registered axes</strong> for the most common cases:
-              <code>wdth</code> for width,
-              <code>wght</code> for weight,
-              <code>ital</code> for italic,
-              <code>slnt</code> for slant,
-              <code>opsz</code> for optical size.
-            </p>
-            <p class="p-body-text">
-              Most variable fonts provide a weight axis and the width axis seems to be very popular as well. But there can also be <strong>custom axes,</strong> giving type designer possibilities to change the thickness of serifs or the height of ascenders and descenders or whatever they come up with.
-            </p>
-          </div>
-        </div>
-
-        <div class="grid-collumn">
-          <div class="narrow-column">
-            <h2 class="h2">Are so many <span class="h2__highlight">different styles</span> really necessary?</h2>
-          </div>
-          <div>
-            <p class="p-body-text">Let’s take a step back and ask ourselves <strong>why do we need different font styles at all?</strong> Typography gives words meaning through design, which means good typography can support the content, bad (or inappropriate) typography weakens it. Different styles of the same typeface make sense when they are unique enough to <strong>stand out.</strong> Concurrent they should be familiar enough by using the same design language. Compared to the regular weight, bold text emphasizes the meaning of something. It has to have a certain contrast to stand out, otherwise, it won’t do its job. Maybe semi-bold would not be different enough. The same goes with italic. Semi-Italic (or semi slanted – true italics are another topic on their own) do not make much sense for long reading text.</p>
-            <blockquote class="blockquote">
-              <span class="quotation-mark quotation-mark--opening">“</span>Typography gives words <span class="blockquote__big">meaning</span> through design.<span class="quotation-mark quotation-mark--closing">”</span>
-            </blockquote>
-            <p class="p-body-text">But this guidelines mainly apply to body text or typography for long reading texts. Having a variety of weights might be beneficial for certain kinds of content, like page titles, headings or blockquotes, as you can see on this page. In that cases the typography can be <strong>more expressive</strong> and finely nuanced because the text usually is not that long.  On this page, I really enjoyed breaking out of my habits and tried to design for typographic flexibility. It was not easy at first and I guess designers will have to change their mindset. But when they do they can achieve so much more and give content a stronger, more appropriate voice.</p>
-            <hr>
-            <p class="p-body-text">This text uses passages of my article <a href="https://www.zeichenschatz.net/typografie/how-to-start-with-variable-fonts-on-the-web.html" target="_blank">How to start with variable fonts on the web</a>. Check it out, if you want to know more about this topic. If you have any feedback, contact me on <a href="https://twitter.com/glyphe" target="_blank">Twitter</a> or write me an <a href="mailto:oliver@zeichenschatz.net">e-mail</a>.</p>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <div class="text-sample-row-container">
-      <div class="text-sample-row text-sample--130 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--200-4 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--200-8 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--270-4 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--350-4 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--400">Aa</div>
-      <div class="text-sample-row text-sample--400-1000">Aa</div>
-      <div class="text-sample-row text-sample--450 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--500-4 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--500-8 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--550 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--550-8 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--600">Aa</div>
-      <div class="text-sample-row text-sample--650 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--750 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--750-8 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--800-4 text-sample-row-container--variable">Aa</div>
-      <div class="text-sample-row text-sample--800-8 text-sample-row-container--variable">Aa</div>
-    </div>
-
-    <div class="style-inventory style-inventory--variable">
-      <div class="wrapper">
-
-        <div class="grid-collumn">
-          <div>
-            <div class="style-inventory-description">
-              <h2 class="h2 h2--style-inveotry">All 18 styles on this page</h2>
-              <p class="p--h2-style-invetory-sub">and where they are used</p>
-            </div>
-          </div>
-          <div>
-            <ol class="show-styles">
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--130">Aa</div>
-                <p class="show-styles__code">weight: 130</p>
-                <div class="show-styles__styles">
-                  <p class="callout__big-number show-styles__text">18</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--200-4">Aa</div>
-                <p class="show-styles__code">weight: 200, slant: 4 deg</p>
-                <div class="show-styles__styles">
-                  <p class="blockquote show-styles__text"><span class="blockquote__big">Quote Big</span></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--200-8">Aa</div>
-                <p class="show-styles__code">weight: 200, slant: 8 deg</p>
-                <div class="show-styles__styles">
-                  <p class="title show-styles__text"><span class="title__variable-web show-styles__text">Title big</span></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--270-4">Aa</div>
-                <p class="show-styles__code">weight: 270, slant: 4 deg</p>
-                <div class="show-styles__styles">
-                  <p class="blockquote show-styles__text">Quote</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--350-4">Aa</div>
-                <p class="show-styles__code">weight: 350, slant: 4 deg</p>
-                <div class="show-styles__styles">
-                  <p class="h2 show-styles__text"><span class="h2__highlight">Heading 2 big</span></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--400">Aa</div>
-                <p class="show-styles__code">weight: 400</p>
-                <div class="show-styles__styles">
-                  <p class="p-body-text show-styles__text">Copy</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--400-8">Aa</div>
-                <p class="show-styles__code">weight: 400, slant: 8 deg</p>
-                <div class="show-styles__styles">
-                  <p class="title show-styles__text"><span class="title__variable-web show-styles__text"><span class="title__variable-web__variable">Title big</span></span></p>
-                  <p class="author show-styles__text">Author by</p>
-                  <p class="p-body-text show-styles__text"><code>Code</code></p>
-                  <p class="p-body-text show-styles__text"><em>Copy emphasized</em></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--450">Aa</div>
-                <p class="show-styles__code">weight: 450</p>
-                <div class="show-styles__styles">
-                  <p class="figcaption show-styles__text">Image Caption</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--500-4">Aa</div>
-                <p class="show-styles__code">weight: 500, slant: 4 deg</p>
-                <div class="show-styles__styles">
-                  <p class="h2 show-styles__text">Heading 2</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--500-8">Aa</div>
-                <p class="show-styles__code">weight: 500, slant: 8 deg</p>
-                <div class="show-styles__styles">
-                  <p class="title show-styles__text"><span class="title__typography show-styles__text">Title small</span></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--550">Aa</div>
-                <p class="show-styles__code">weight: 550</p>
-                <div class="show-styles__styles">
-                  <p class="intro show-styles__text">Intro Text</p>
-                  <p class="show-styles__text callout__small-text">File size quote</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--550-8">Aa</div>
-                <p class="show-styles__code">weight: 550, slant: 8 deg</p>
-                <div class="show-styles__styles">
-                  <p class="author show-styles__text author__first-name">Author first name</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--600">Aa</div>
-                <p class="show-styles__code">weight: 600</p>
-                <div class="show-styles__styles">
-                  <div class="show-styles__button">Button Text</div>
-                  <p class="footer show-styles__text">Page Footer text</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--650">Aa</div>
-                <p class="show-styles__code">weight: 650</p>
-                <div class="show-styles__styles">
-                  <p class="p-body-text show-styles__text"><strong>Copy strong</strong></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--750">Aa</div>
-                <p class="show-styles__code">weight: 750</p>
-                <div class="show-styles__styles">
-                <p class="show-styles__text callout__small-text"><strong class="show-styles__text callout__small-text-strong">File size quote strong</strong></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--750-8">Aa</div>
-                <p class="show-styles__code">weight: 750, slant: 8 deg</p>
-                <div class="show-styles__styles">
-                  <p class="author show-styles__text author__last-name">Author last name</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--800-4">Aa</div>
-                <p class="show-styles__code">weight: 800, slant: 4 deg</p>
-                <div class="show-styles__styles">
-                  <p class="blockquote show-styles__text"><span class="quotation-mark show-styles__text">“quote signs”</span></p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--800-8">Aa</div>
-                <p class="show-styles__code">weight: 800, slant: 8 deg</p>
-                <div class="show-styles__styles">
-                  <p class="title show-styles__text"><span class="title__be-ready show-styles__text">Title small</span></p>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="style-inventory style-inventory--traditional">
-      <div class="wrapper">
-
-        <div class="grid-collumn">
-          <div>
-            <div class="style-inventory-description">
-              <h2 class="h2 h2--style-inveotry">All 3 styles on this page</h2>
-              <p class="p--h2-style-invetory-sub">Using as few styles as possible is how you would do it traditionally with static web fonts. This results in less file size but also less individuality.</p>
-            </div>
-          </div>
-          <div>
-            <ol class="show-styles">
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--400">Aa</div>
-                <p class="show-styles__code">font-weight: normal</p>
-                <div class="show-styles__styles">
-                  <p class="callout__big-number show-styles__text">18</p>
-                  <p class="p-body-text show-styles__text">Copy</p>
-                  <p class="figcaption show-styles__text">Image Caption</p>
-                  <p class="show-styles__text callout__small-text">File size quote</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--400-8">Aa</div>
-                <p class="show-styles__code">font-weight: normal, font-style: italic</p>
-                <div class="show-styles__styles">
-                  <p class="title show-styles__text"><span class="title__variable-web show-styles__text">Title</span></p>
-                  <p class="author show-styles__text">Author</p>
-                  <p class="p-body-text show-styles__text"><code>Code</code></p>
-                  <p class="p-body-text show-styles__text"><em>Copy emphasized</em></p>
-                  <p class="blockquote show-styles__text">Quote</p>
-                </div>
-              </li>
-
-              <li class="show-styles__item">
-                <div class="text-sample text-sample--600">Aa</div>
-                <p class="show-styles__code">font-weight: bold</p>
-                <div class="show-styles__styles">
-                  <p class="h2 show-styles__text">Heading 2</p>
-                  <p class="intro show-styles__text">Intro</p>
-                  <p class="p-body-text show-styles__text"><strong>Copy strong</strong></p>
-                  <p class="show-styles__text callout__small-text"><strong class="show-styles__text callout__small-text-strong">File size quote strong</strong></p>
-                  <p class="blockquote show-styles__text"><span class="quotation-mark show-styles__text">“quote signs”</span></p>
-
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-
-
-
-    <footer class="footer">
-      <div class="wrapper">
-        <div class="grid-collumn">
-          <div>
-          </div>
-          <div>
-            <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Variable Web Typography</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://zeichenschatz.net/" property="cc:attributionName" rel="cc:attributionURL" target="_blank">Oliver Schöndorfer</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>. Typeface provided for this demo purpose is <a xmlns:dct="http://purl.org/dc/terms/" href="https://djr.com/output/" rel="dct:source" target="_blank">Output Sans by David Jonathan Ross</a>.
-          </div>
-        </div>
-      </div>
-    </footer>
-
-  </body>
-  <script>
+</body>
+<script>
   function toggleTypography() {
-   var myPageClasses = document.getElementById("page").classList;
-   if (myPageClasses.contains("traditional")) {
+    var myPageClasses = document.getElementById("page").classList;
+    if (myPageClasses.contains("traditional")) {
       myPageClasses.remove("traditional");
-   } else {
+    } else {
       myPageClasses.add("traditional");
-   }
-   if (myPageClasses.contains("variable")) {
+    }
+    if (myPageClasses.contains("variable")) {
       myPageClasses.remove("variable");
-   } else {
+    } else {
       myPageClasses.add("variable");
-   }
+    }
 
-   var mySwitchClasses = document.getElementById("toggle").classList;
-   if (mySwitchClasses.contains("switch-variable-on")) {
+    var mySwitchClasses = document.getElementById("toggle").classList;
+    if (mySwitchClasses.contains("switch-variable-on")) {
       mySwitchClasses.remove("switch-variable-on");
-   } else {
+    } else {
       mySwitchClasses.add("switch-variable-on");
-   }
-   if (mySwitchClasses.contains("switch-variable-off")) {
+    }
+    if (mySwitchClasses.contains("switch-variable-off")) {
       mySwitchClasses.remove("switch-variable-off");
-   } else {
+    } else {
       mySwitchClasses.add("switch-variable-off");
-   }
+    }
   }
-  </script>
+</script>
 </html>

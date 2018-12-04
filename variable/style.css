@@ -1,7 +1,7 @@
 :root {
-  --color-primary: #37187c;
+  --color-primary: #423B90;
   --color-secondary: #262A4C;
-  --color-contrast: #ff4929;
+  --color-contrast: #FF0168;
 
   --color-text: #020521;
   --color-light: #fff;
@@ -11,15 +11,26 @@
   --line-height-half: calc( var(--line-height) / 2);
   --line-height-double: calc( var(--line-height) * 2);
 }
-
+/*
 @font-face {
   font-family: 'Source Sans VF';
-  src: url('SourceSansVariable-Roman.otf.woff2') format('woff2-variations'), /* for Safari */
-       url('SourceSansVariable-Roman.otf.woff2') format('woff2'), /* for all browsers except Safari */
-       url('SourceSansVariable-Roman.otf.woff2') format('woff-variations'), /* for Safari */
-       url('SourceSansVariable-Roman.otf.woff2') format('woff'), /* for all browsers except Safari */
-       url('SourceSansVariable-Roman.ttf.woff2') format('truetype-variations'), /* for Safari */
-       url('SourceSansVariable-Roman.ttf.woff2') format('truetype'); /* for all browsers except Safari */
+  src: url('SourceSansVariable-Roman.otf.woff2') format('woff2-variations'),
+       url('SourceSansVariable-Roman.otf.woff2') format('woff2'),
+       url('SourceSansVariable-Roman.otf.woff2') format('woff-variations'), for Safari
+       url('SourceSansVariable-Roman.otf.woff2') format('woff'),
+       url('SourceSansVariable-Roman.ttf.woff2') format('truetype-variations'),
+       url('SourceSansVariable-Roman.ttf.woff2') format('truetype');
+} */
+
+
+@font-face {
+  font-family: 'Inter UI VF';
+  src: url('Inter-UI.var.woff2') format('woff2-variations'),
+       url('Inter-UI.var.woff2') format('woff2'),
+       url('Inter-UI.var.woff2') format('woff-variations'),
+       url('Inter-UI.var.woff2') format('woff');
+       /* url('SourceSansVariable-Roman.ttf.woff2') format('truetype-variations'),
+       url('SourceSansVariable-Roman.ttf.woff2') format('truetype'); */
 }
 
 @media screen and (max-width: 40em) {
@@ -75,10 +86,10 @@
 }
 
 body {
-  font-family: 'Source Sans VF', sans-serif;
+  font-family: 'Inter UI VF', sans-serif;
   color: var(--color-text);
   margin: 0;
-  background-color: var(--color-background);
+  /* background-color: var(--color-background); */
 }
 
 h1, h2, strong {
@@ -167,7 +178,6 @@ figure {
 
 .header {
   margin-bottom: var(--line-height);
-  background: linear-gradient(to bottom, #fff, var(--color-background));
 }
 
 .header > .wrapper {
@@ -217,10 +227,10 @@ hr {
   font-variation-settings: "wght" 400, "slnt" 8;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  border-top: 5px solid var(--color-light);
-  border-bottom: 5px solid var(--color-light);
+  border-top: 5px solid var(--color-contrast);
+  border-bottom: 5px solid var(--color-contrast);
   padding: 0.4em 0.5em 0.2em;
-  margin-bottom: var(--line-height);
+  margin-bottom: 1rem;
   color: var(--color-primary);
   text-align: center;
 }
@@ -232,8 +242,12 @@ hr {
 }
 @media screen and (min-width: 60em) {
   .author {
-    margin-bottom: var(--line-height-double);
+    /* margin-bottom: var(--line-height-double); */
   }
+}
+
+.dt-published {
+  font-variation-settings: "wght" 400, "slnt" 8;
 }
 
 p,
@@ -441,7 +455,7 @@ a:active {
   font-size: 2rem;
   line-height: 1;
   color: var(--color-primary);
-  max-width: 44.3rem;
+  max-width: 45.3rem;
 }
 
 .variable .title__be-ready,
@@ -455,9 +469,6 @@ a:active {
 @media screen and (min-width: 40em) {
   .variable .title__be-ready {
     margin-left: 0.45em;
-  }
-  .variable .title__for {
-    margin-left: 0.5em;
   }
 }
 
