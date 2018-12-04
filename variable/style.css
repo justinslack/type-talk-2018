@@ -96,6 +96,21 @@ h1, h2, strong {
   font-weight: normal;
 }
 
+.variable a {
+  font-variation-settings: "wght" 550;
+}
+
+ol, ul {
+  font-size: 1.25em;
+  padding: 0;
+  list-style-position: outside;
+  line-height: var(--line-height);
+}
+
+li {
+  margin: 0.5em;
+}
+
 em {
   font-style: normal;
 }
@@ -106,14 +121,14 @@ em {
   margin: 0 auto;
 }
 
-.grid-collumn {
+.e-content {
   margin-bottom: var(--line-height-double);
 }
 @media screen and (min-width: 48em) {
-  .grid-collumn {
+  .e-content {
     display: grid;
     grid-template-columns: minmax(300px, 2fr) minmax(300px, 3fr);
-    grid-column-gap: var(--line-height);
+    grid-column-gap: var(--line-height-double);
     grid-auto-flow: row;
     margin-bottom: var(--line-height);
   }
@@ -247,6 +262,7 @@ hr {
 }
 
 .dt-published {
+  font-size: 0.875em;
   font-variation-settings: "wght" 400, "slnt" 8;
 }
 
@@ -375,7 +391,7 @@ p,
 
 .blockquote {
   color: var(--color-secondary);
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: calc(var(--line-height)*1.5);
   margin: 0 0 var(--line-height);
   font-variation-settings: "wght" 270, "slnt" 4;
@@ -385,7 +401,7 @@ p,
 
 .quotation-mark {
   font-variation-settings: "wght" 800, "slnt" 4;
-  color: var(--color-light);
+  color: var(--color-contrast);
 }
 
 .quotation-mark--opening {
@@ -455,7 +471,7 @@ a:active {
   font-size: 2rem;
   line-height: 1;
   color: var(--color-primary);
-  max-width: 45.3rem;
+  max-width: 46.3rem;
 }
 
 .variable .title__be-ready,
@@ -493,7 +509,8 @@ a:active {
 }
 
 .variable .title__variable-web__variable {
-  font-variation-settings: "wght" 400, "slnt" 8;
+  color: var(--color-contrast);
+  font-variation-settings: "wght" 650, "slnt" 8;
 }
 
 .variable .title__variable-web__web {
@@ -528,7 +545,7 @@ a:active {
 }
 
 .variable .author__last-name {
-  font-variation-settings: "wght" 750, "slnt" 8;
+  font-variation-settings: "wght" 850, "slnt" 8;
 }
 
 

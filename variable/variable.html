@@ -37,22 +37,21 @@
 
 
       <div class="e-content">
-        <p>On the first day of <a href="https://indieweb.org/2018/Berlin">Indie Web Camp Berlin</a>, I led a session on <a href="https://abookapart.com/products/going-offline">going offline with service workers</a>. This covered all the usual use-cases: pre-caching; custom offline pages; saving pages for offline reading.</p>
-
-        <p>But on the second day, <a href="https://seblog.nl/">Sebastiaan</a> spent a fair bit of time investigating a more complex use of service workers with <a href="https://www.w3.org/TR/push-api/">the Push API</a>.</p>
-
-        <p>The Push API is what makes push notifications possible on the web. There are a <em>lot</em> of moving parts—browser, server, service worker—and, frankly, it’s way over my head. But I’m familiar with the general gist of how it works. Here’s a typical flow:</p>
-
-        <ol>
-          <li>A website prompts the user for permission to send push notifications.</li>
-          <li>The user grants permission.</li>
-          <li>A whole lot of complicated stuff happens behinds the scenes.</li>
-          <li>Next time the website publishes something relevant, it fires a push message containing the details of the new URL.</li>
-          <li>The user’s service worker receives the push message (even if the site isn’t open).</li>
-          <li>The service worker creates a notification linking to the URL, interrupting the user, and generally adding to the weight of information overload.</li>
-        </ol>
-
-        <p>Here’s what Sebastiaan wanted to investigate: what if that last step weren’t so intrusive? Here’s the alternate flow he wanted to test:</p>
+        <div>
+          <p class="intro">On the first day of <a href="https://indieweb.org/2018/Berlin">Indie Web Camp Berlin</a>, I led a session on <a href="https://abookapart.com/products/going-offline">going offline with service workers</a>. This covered all the usual use-cases: pre-caching; custom offline pages; saving pages for offline reading.</p>
+          <p class="intro">But on the second day, <a href="https://seblog.nl/">Sebastiaan</a> spent a fair bit of time investigating a more complex use of service workers with <a href="https://www.w3.org/TR/push-api/">the Push API</a>.</p>
+        </div>
+        <div>
+          <p class="p-body-text">The <strong>Push API</strong> is what makes push notifications possible on the web. There are a <em>lot</em> of moving parts—browser, server, service worker—and, frankly, it’s way over my head. But I’m familiar with the general gist of how it works. Here’s a typical flow:</p>
+          <ol>
+            <li>A website prompts the user for permission to send push notifications.</li>
+            <li>The user grants permission.</li>
+            <li>A whole lot of complicated stuff happens behinds the scenes.</li>
+            <li>Next time the website publishes something relevant, it fires a push message containing the details of the new URL.</li>
+            <li>The user’s service worker receives the push message (even if the site isn’t open).</li>
+            <li>The service worker creates a notification linking to the URL, interrupting the user, and generally adding to the weight of information overload.</li>
+          </ol>
+          <p>Here’s what Sebastiaan wanted to investigate: what if that last step weren’t so intrusive? Here’s the alternate flow he wanted to test:</p>
 
         <ol>
           <li>A website prompts the user for permission to send push notifications.</li>
@@ -63,46 +62,53 @@
           <li>The service worker fetches the contents of the URL provided in the push message and caches the page. Silently.</li>
         </ol>
 
-        <p>It worked.</p>
 
-        <p>I think this could be a real game-changer. I don’t know about you, but I’m very, <em>very</em> wary of granting websites the ability to send me push notifications. In fact, I don’t think I’ve ever given a website permission to interrupt me with push notifications. </p>
 
-        <p>You’ve seen the annoying permission dialogues, right?</p>
+        </div>
+      </div>
+      <div class="e-content">
+        <div>
+           <h2 class="h2">A real <span class="h2__highlight">game changer</span></h2>
+        </div>
 
-        <p>In Firefox, it looks like this:</p>
+        <div>
+          <p>It worked.</p>
+          <p class="p-body-text">I think this could be a real game-changer. I don’t know about you, but I’m very, <em>very</em> wary of granting websites the ability to send me push notifications. In fact, I don’t think I’ve ever given a website permission to interrupt me with push notifications. </p>
 
-        <blockquote>
-          <p>Will you allow name-of-website to send notifications?</p>
+          <p>You’ve seen the annoying permission dialogues, right?</p>
 
-          <p>[Not Now] [Allow Notifications]</p>
-        </blockquote>
+          <p>In Firefox, it looks like this:</p>
 
-        <p>In Chrome, it’s:</p>
+          <blockquote class="blockquote">
+            <span class="quotation-mark quotation-mark--opening">“</span>Will you allow name-of-website to send notifications?<span class="quotation-mark quotation-mark--closing">”</span>
+            <p>[Not Now] [Allow Notifications]</p>
+          </blockquote>
 
-        <blockquote>
-          <p>name-of-website wants to</p>
+          <p>In Chrome, it’s:</p>
 
-          <p>Show notifications</p>
+          <blockquote class="blockquote">
+            <span class="quotation-mark quotation-mark--opening">“</span>name-of-website wants to Show notifications<span class="quotation-mark quotation-mark--closing">”</span>
+            <p>[Block] [Allow]</p>
+          </blockquote>
 
-          <p>[Block] [Allow]</p>
-        </blockquote>
+          <p>But in actual fact, these dialogues are asking for permission to do <strong>two</strong> things:</p>
 
-        <p>But in actual fact, these dialogues are asking for permission to do <strong>two</strong> things:</p>
+          <ol>
+            <li>Receive messages pushed from the server.</li>
+            <li>Display notifications based on those messages.</li>
+          </ol>
 
-        <ol>
-          <li>Receive messages pushed from the server.</li>
-          <li>Display notifications based on those messages.</li>
-        </ol>
-
-        <p>There’s no way to ask for permission just to do the first part. That’s a shame. While I’m very unwilling to grant permission to be interrupted by intrusive notifications, I’d be more than willing to grant permission to allow a website to silently cache timely content in the background. It would be a more <a href="https://calmtech.com/">calm technology</a>.</p>
-
-        <p>Think of the use cases:</p>
-
-        <ul>
-          <li>I grant push permission to <a href="https://www.1843magazine.com/">a magazine</a>. When the magazine publishes a new article, it’s cached on my device.</li>
-          <li>I grant push permission to <a href="http://revisionisthistory.com/">a podcast</a>. Whenever a new episode is published, it’s cached on my device.</li>
-          <li>I grant push permission to <a href="https://www.centauri-dreams.org/">a blog</a>. When there’s a new blog post, it’s cached on my device.</li>
-        </ul>
+          <p>There’s no way to ask for permission just to do the first part. That’s a shame. While I’m very unwilling to grant permission to be interrupted by intrusive notifications, I’d be more than willing to grant permission to allow a website to silently cache timely content in the background. It would be a more <a href="https://calmtech.com/">calm technology</a>.</p>
+        </div>
+      </div>
+      <div class="e-content">
+        <div>
+          <h2 class="h2">Think of the <span class="h2__highlight">use cases:</span></h2>
+        </div>
+        <div>
+          <p>I grant push permission to <a href="https://www.1843magazine.com/">a magazine</a>. When the magazine publishes a new article, it’s cached on my device.</p>
+          <p>I grant push permission to <a href="http://revisionisthistory.com/">a podcast</a>. Whenever a new episode is published, it’s cached on my device.</p>
+            <p>I grant push permission to <a href="https://www.centauri-dreams.org/">a blog</a>. When there’s a new blog post, it’s cached on my device.</p>
 
         <p>Then when I’m on a plane, or in the subway, or in any other situation without a network connection, I could still visit these websites and get content that’s fresh to me. It’s kind of like <a href="https://developers.google.com/web/updates/2015/12/background-sync">background sync</a> in reverse.</p>
 
@@ -115,52 +121,9 @@
         <p>I wonder if the act of <a href="https://adactio.com/journal/13061">adding a site to the home screen</a> could implicitly grant permission to allow use of the Push API <em>without</em> notifications?</p>
 
         <p>In the meantime, the proposal for <a href="https://github.com/WICG/BackgroundSync/blob/master/explainer.md#periodic-synchronization-in-design">periodic synchronisation</a> (using background sync) could achieve similar results, but in a less elegant way; periodically polling for new content instead of receiving a push message when new content is published. Also, it requires permission. But at least in this case, the permission dialogue should be more specific, and wouldn’t include the word “notification” anywhere.</p>
-
+      </div>
       </div>
 
-      <footer>
-        <p class="meta">
-          <time datetime="2018-11-11T23:41:41Z">
-            11:41pm
-          </time>
-        </p>
-        <p class="meta">
-          Tagged with
-          <a rel="tag" href="/journal/tags/push">push</a>
-          <a rel="tag" href="/journal/tags/notifications">notifications</a>
-          <a rel="tag" href="/journal/tags/serviceworkers">serviceworkers</a>
-          <a rel="tag" href="/journal/tags/offline">offline</a>
-          <a rel="tag" href="/journal/tags/caching">caching</a>
-          <a rel="tag" href="/journal/tags/caches">caches</a>
-          <a rel="tag" href="/journal/tags/background">background</a>
-          <a rel="tag" href="/journal/tags/sync">sync</a>
-          <a rel="tag" href="/journal/tags/frontend">frontend</a>
-          <a rel="tag" href="/journal/tags/development">development</a>
-          <a rel="tag" href="/journal/tags/permissions">permissions</a>
-          <a rel="tag" href="/journal/tags/dialogue">dialogue</a>
-          <a rel="tag" href="/journal/tags/security">security</a>
-          <a rel="tag" href="/journal/tags/indiewebcamp">indiewebcamp</a>
-          <a rel="tag" href="/journal/tags/berlin">berlin</a>
-          <a rel="tag" href="/journal/tags/browsers">browsers</a>
-          <a rel="tag" href="/journal/tags/standards">standards</a>
-        </p>
-        <p class="meta">
-          Also on
-          <a rel="syndication" class="u-syndication" href="https://medium.com/@adactio/e5dfb24f7189">Medium</a>
-        </p>
-      </footer>
-
-      <p>
-        <a rel="prev" href="/journal/14516" title="Optimise without a face">« Newer</a>
-        <a rel="next" href="/journal/14509" title="Webmentions at Indie Web Camp Berlin">Older »</a>
-      </p>
-
-      <form method="post" action="/webmention">
-        <p>Have you published a response to this? <label for="webmention-source">Let me know the <abbr title="Uniform Resource Locator">URL</abbr></label>:</p>
-        <input type="url" name="source" id="webmention-source">
-        <input type="hidden" name="target" value="https://adactio.com/journal/14511">
-        <button type="submit">Ping!</button>
-      </form>
     </div>
   </div>
 
@@ -174,7 +137,7 @@
         <div>
         </div>
         <div>
-          <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Variable Web Typography</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://zeichenschatz.net/" property="cc:attributionName" rel="cc:attributionURL" target="_blank">Oliver Schöndorfer</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>. Typeface provided for this demo purpose is <a xmlns:dct="http://purl.org/dc/terms/" href="https://djr.com/output/" rel="dct:source" target="_blank">Output Sans by David Jonathan Ross</a>.
+          <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Inpsired by Variable Web Typography</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://zeichenschatz.net/" property="cc:attributionName" rel="cc:attributionURL" target="_blank">Oliver Schöndorfer</a>.
         </div>
       </div>
     </div>
