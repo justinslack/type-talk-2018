@@ -89,7 +89,7 @@ body {
   font-family: 'Inter UI VF', sans-serif;
   color: var(--color-text);
   margin: 0;
-  /* background-color: var(--color-background); */
+  padding: 0 16px;
 }
 
 h1, h2, strong {
@@ -196,7 +196,7 @@ figure {
 }
 
 .header > .wrapper {
-  min-height: 50vh;
+  min-height: 30vh;
   display: flex;
 }
 
