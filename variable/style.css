@@ -202,7 +202,7 @@ figure {
 
 .title {
   margin-top: auto;
-  padding-top: var(--line-height-double);
+  padding-top: var(--line-height);
   width: 100%;
 }
 
