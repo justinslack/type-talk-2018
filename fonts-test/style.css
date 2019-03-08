@@ -29,9 +29,9 @@ body {
 
 
 h1 {
-  animation: grow 4s linear infinite;
+/*  animation: grow 4s linear infinite;
   animation: test2 4s linear infinite;
-  animation: test3 4s linear infinite;
+  animation: test3 4s linear infinite;*/
   font-family: "Decovar Regular24";
   font-size: 3em;
   font-variation-settings:
