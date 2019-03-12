@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Open type features</title>
+        <link rel="stylesheet" href="https://use.typekit.net/alq3vxc.css">
+        <link rel="stylesheet" href="style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+
+    <div class="container additional-container all-features" id="allFeatures">
+      <h1>Flying high at UM's Digital Map Library <abbr>(DML)</abbr></h1>
+
+      <p>
+        At the office of the University of Michigan’s Hatcher library, the latest expansion to the collection is happening within a <span>12 × 20</span> windowless room housing several servers. The digital archivists on the Digital Map Library team are working to scan the library’s entire extensive collection of maps, in order to “bring geographical history into a more modern perspective,” says lead archivist Natalie Bond. “We want the Michigan <abbr>DML</abbr> to become the first and best resource for historical maps, and we want it to be accessible to any library in the world.”</p>
+      <p>
+        High resolution scans create enormous files, usually in the realm of <span>4,500</span> megabytes for just the initial layer. The <abbr>DML</abbr> team then adds additional layers of metadata and imagery to make the maps interactive —&nbsp;and searchable. “By the time we’re done, each map is made up of hundreds of separate files. If you had to load it all at once on your browser, you’d be waiting all day; it’s around <span>1,500,000</span> kb even after some of the image compression. So we’ve developed a way to load the data in a way that’s much easier for people to actually use.”</p>
+
+        <button id="toggleFour" class="switch" onclick="toggleSmallCaps()">Small caps and lining numbers</button>
+        <button id="toggleFive" class="switch" onclick="toggleSset()">Stylistic set</button>
+        <button id="toggleSix" class="switch" onclick="toggleAalt()">Access all alternates</button>
+
+    </div>
+
+
+    <script>
+      function toggleSmallCaps() {
+        var myPageClasses = document.getElementById("allFeatures").classList;
+        if (myPageClasses.contains("smcp")) {
+          myPageClasses.remove("smcp");
+        } else {
+          myPageClasses.add("smcp");
+        }
+
+        var mySwitchClasses = document.getElementById("toggleFour").classList;
+        if (mySwitchClasses.contains("switch-variable-on")) {
+          mySwitchClasses.remove("switch-variable-on");
+        } else {
+          mySwitchClasses.add("switch-variable-on");
+        }
+      }
+
+
+      function toggleSset() {
+        var myPageClasses = document.getElementById("allFeatures").classList;
+        if (myPageClasses.contains("ss01")) {
+          myPageClasses.remove("ss01");
+        } else {
+          myPageClasses.add("ss01");
+        }
+        var mySwitchClasses = document.getElementById("toggleFive").classList;
+        if (mySwitchClasses.contains("switch-variable-on")) {
+          mySwitchClasses.remove("switch-variable-on");
+        } else {
+          mySwitchClasses.add("switch-variable-on");
+        }
+      }
+
+      function toggleAalt() {
+        var myPageClasses = document.getElementById("allFeatures").classList;
+        if (myPageClasses.contains("aalt")) {
+          myPageClasses.remove("aalt");
+        } else {
+          myPageClasses.add("aalt");
+        }
+        var mySwitchClasses = document.getElementById("toggleSix").classList;
+        if (mySwitchClasses.contains("switch-variable-on")) {
+          mySwitchClasses.remove("switch-variable-on");
+        } else {
+          mySwitchClasses.add("switch-variable-on");
+        }
+      }
+    </script>
+    </body>
+</html>

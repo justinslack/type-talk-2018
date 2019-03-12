@@ -31,12 +31,20 @@ button {
   display: inline-block;
 }
 
-button:hover {
-  color: #404040 !important;
-  font-weight: 700 !important;
-  background: none;
+button::after {
+  content: " on"
+}
+
+button:hover, .switch-variable-on  {
+  /* color: #404040 !important; */
+  /* font-weight: 700 !important; */
+  /* background: none; */
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+}
+
+.switch-variable-on::after {
+  content: " off"
 }
 
 button:focus {
@@ -59,7 +67,7 @@ table.open-type {
 }
 
 table th, td {
-  border-bottom: 1px solid #ECEEF0;
+  /* border-bottom: 1px solid #ECEEF0; */
   text-align: left;
   padding: 20px;
 }
@@ -70,6 +78,10 @@ table svg {
 
 table th.align-right, table td.align-right  {
   text-align: right;
+}
+
+tr:hover td {
+  background-color: #f4f4f4;
 }
 
 .checkbox-custom, .radio-custom {
@@ -163,5 +175,5 @@ table th.align-right, table td.align-right  {
 
 .aalt {
   font-feature-settings: "aalt";
-  font-feature-settings: "kern" 0;
+/*   font-feature-settings: "kern" 0; */
 }

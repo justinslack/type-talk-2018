@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Open type features</title>
+        <link rel="stylesheet" href="https://use.typekit.net/alq3vxc.css">
+        <link rel="stylesheet" href="style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+    <div class="container additional-container">
+      <h1>Fractions</h1>
+      <p class="fractions" id="fractions">Add <span class="span-color">3/4</span> cup of flour <span class="span-color">1/2</span> a cup at a time.</p>
+        <button id="toggleTwo" class="switch" onclick="toggleFrac()">Switch fractions</button>
+    </div>
+
+    <script>
+      function toggleFrac() {
+        var myPageClasses = document.getElementById("fractions").classList;
+        if (myPageClasses.contains("frac")) {
+          myPageClasses.remove("frac");
+        } else {
+          myPageClasses.add("frac");
+        }
+
+        var mySwitchClasses = document.getElementById("toggleTwo").classList;
+        if (mySwitchClasses.contains("switch-variable-on")) {
+          mySwitchClasses.remove("switch-variable-on");
+        } else {
+          mySwitchClasses.add("switch-variable-on");
+        }
+      }
+    </script>
+  </body>
+</html>
